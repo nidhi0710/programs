@@ -1,8 +1,4 @@
 import string
-import os
-
-key_matrix=[]
-
 #build matrix
 def matrix(key):
 	matrix=[]
@@ -159,6 +155,3 @@ elif select == "2":
 	decrypt(message)
 else:
 	print("wrong option")
-
-
-
