@@ -9,6 +9,7 @@ def matrix(key):
 			matrix.append(i)
 
 	add = string.ascii_lowercase[:26]
+	add = add.replace(exclude,"")
 	#adding remaining alphabets
 	for i in add:
 		if i not in matrix:
@@ -36,14 +37,16 @@ def message_split(message):
 		if " " in message_split:
 			message_split.remove(" ")
 
-	m = int((len(message_split))/2)
+	if (len(message_split) == 0):
+		message_split.append("x")
+
 	k = 0
-	for i in range(m):
-		if(message_split[k] == message_split[k+1]):
-			message_split.insert(k+1,"x")
+	for i in range(len(message_split)-1):
+		if(message_split[i] == message_split[i+1]):
+			message_split.insert(i+1,"x")
 		k = k+2
 
-		if len(message_split)%2 == 1:
+	if len(message_split)%2 == 1:
 			message_split.append("x")
 
 	return message_split
@@ -51,10 +54,9 @@ def message_split(message):
 def enycrypt(message):
 	final=[]
 	a = matrix(key)
-	print(a)
 	e = message_split(message)
-	print(e)
 	m = int((len(e))/2)
+	print(a)
 	k=0
 	for i in range(m):
 		first = e[k]
@@ -68,8 +70,6 @@ def enycrypt(message):
 				if(a[i][j] == second):
 					x2=i
 					y2=j
-
-		print(x1,x2,y1,y2)
 
 		if(x1 == x2):
 			if(y1 == 4):
@@ -93,14 +93,15 @@ def enycrypt(message):
 
 		k=k+2
 
-	print(final)
+	z=''.join(final)
+	return z
 
 def decrypt(message):
 	final=[]
 	a = matrix(key)
-	print(a)
-	e = message_split(message)
-	print(e)
+	e = []
+	for i in message:
+		e.append(i)
 	m = int((len(e))/2)
 	k=0
 	for i in range(m):
@@ -116,13 +117,11 @@ def decrypt(message):
 					x2=i
 					y2=j
 
-		print(x1,x2,y1,y2)
-
 		if(x1 == x2):
 			if(y1 == 0):
-				y1= 5
+				y1 = 5
 			if(y2 == 0):
-				y2= 5
+				y2 = 5
 			final.append(a[x1][y1-1])
 			final.append(a[x1][y2-1])
 
@@ -140,18 +139,14 @@ def decrypt(message):
 
 		k=k+2
 
-	print(final)
+	z=''.join(final)
+	return z
 
-
-select= input("enter 1 to enycrypt and 2 to decrypt")
-print(select)
-
-key = input("input your key")
-message= input("type message")
-
-if select == "1":
-	enycrypt(message)
-elif select == "2":
-	decrypt(message)
-else:
-	print("wrong option")
+key = input("Input your key")
+message= input("Type message")
+exclude= input("Input the letter you want to exclude(should not be a part of key or message!)")
+e_text = enycrypt(message)
+print("Key is: \t" + key)
+print("Plain Text is:\t" + message)
+print("Encrypted text:\t" +e_text)
+print("Decrypted text:\t" +decrypt(e_text))
