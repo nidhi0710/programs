@@ -1,0 +1,22 @@
+A linear search or sequential search is a method for finding an element within a list. It sequentially checks each element of the list until a match is found or the whole list has been searched.
+Class: Search algorithm
+Worst-case space complexity: O(1) iterative
+Best-case performance: O(1)
+Average performance: O(n/2)
+
+// Algorithm 
+Start from the leftmost element of given arr[] and one by one compare element x with each element of arr[]
+
+If x matches with any of the element, return the index value.
+
+If x doesn’t match with any of elements in arr[] , return -1 or element not found.
+
+// Code
+def linearsearch(arr, x):
+   for i in range(len(arr)):
+      if arr[i] == x:
+         return i
+   return -1
+arr = ['t','u','t','o','r','i','a','l']
+x = 'a'
+print("element found at index "+str(linearsearch(arr,x)))
